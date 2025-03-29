@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function ConversationList() {
   const [conversationdata, setConversation] = useState([]);
-  console.log(conversationdata);
+  // console.log(conversationdata);
   async function getConversatiion() {
     const main = new Listings();
     const messages = main.getConversationList();

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const API_URL = "http://localhost:8000/"
-const API_URL = "https://snaptalk-back.vercel.app/";
+const API_URL = "https://snaptalk-back.vercel.app";
 function getToken() {
   const data = localStorage && localStorage.getItem("token");
   return data;
