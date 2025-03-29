@@ -1,0 +1,47 @@
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+  /* background: linear-gradient(rgb(171 47 47), rgb(83 70 70 / 71%)); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Defaults Colors  */
+
+.bg-main {
+  background-color: #e13939;
+}
+.bg-dark1 {
+  background-color: #06131c;
+}
+.bg-dark2 {
+  background-color: #ffffff0d;
+}
+.bg-dark3 {
+  background-color: #213848;
+}
+
+.msg-cont {
+  background-image: url(./components/images/message-bg.jpg);
+}
+
+
+/* dark mode looking scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #555;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #121212;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #242424;
+}
