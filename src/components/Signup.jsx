@@ -56,13 +56,12 @@ function Signup() {
       await axios
         .post("https://snaptalk-back.vercel.app/api/auth/signup", inputs)
         .then((res) => {
-          if(res.data.status === true){
-            toast.success("Account Created Successfull")
-          }
-          else if(res.data.status === false){
-            toast.error("User already registered...")
-          }else{
-            toast("Create new account")
+          if (res.data.status === true) {
+            toast.success("Account Created Successfull");
+          } else if (res.data.status === false) {
+            toast.error("User already registered...");
+          } else {
+            toast("Create new account");
           }
         });
     } catch (error) {
@@ -73,116 +72,116 @@ function Signup() {
   return (
     <>
       <Toaster />
-       <div className="p-4 h-screen flex items-center justify-center bg-dark1 text-white">
-      <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
-        <div className="xl:w-full lg:w-full md:w-full  p-6 rounded-lg shadow-md  shadow-slate-300">
-          <h1 className="text-3xl font-semibold text-center text-gray-300">
-            Sign Up <span className="text-blue-500"> ChatApp</span>
-          </h1>
+      <div className="p-4 h-screen flex items-center justify-center bg-dark1 text-white">
+        <div className="flex flex-col justify-center min-w-96 mx-auto">
+          <div className="xl:w-full lg:w-full md:w-full  p-6 rounded-lg shadow-md mx-4 shadow-slate-300">
+            <h1 className="text-3xl font-semibold text-center text-gray-300">
+              Sign Up <span className="text-blue-500"> ChatApp</span>
+            </h1>
 
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label className="label p-2">
-                <span className="text-base">Full Name</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Full name"
-                name="fullname"
-                className="w-full input input-bordered  h-10  text-black"
-                onChange={getValue}
-              />
-            </div>
-
-            <div>
-              <label className="label p-2 ">
-                <span className="text-base">Username</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Username"
-                name="username"
-                onChange={getValue}
-                className="w-full input input-bordered h-10  text-black"
-              />
-            </div>
-            <div>
-              <label className="label">
-                <span className="text-base">Password</span>
-              </label>
-              <input
-                type="password"
-                name="password"
-                onChange={getValue}
-                placeholder="Enter Password"
-                className="w-full input input-bordered h-10  text-black"
-              />
-            </div>
-
-            <div>
-              <label className="label">
-                <span className="text-base">Confirm Password</span>
-              </label>
-              <input
-                type="password"
-                name="confirmPassword"
-                onChange={getValue}
-                placeholder="Confirm Password"
-                className="w-full input input-bordered h-10  text-black"
-              />
-            </div>
-
-            {/* Gender Button here */}
-            <div className="flex">
-              <div className="form-control">
-                <label
-                  className={`label gap-2 cursor-pointer ${
-                    inputs.gender === "male" ? "selected" : ""
-                  }`}
-                >
-                  <span>Male</span>
-                  <input
-                    type="checkbox"
-                    name="gender"
-                    className={`checkbox border-slate-300 bg-white  text-black`}
-                    checked={inputs.gender === "male"}
-                    onChange={() => handleCheckboxChange("male")}
-                  />
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label className="label p-2">
+                  <span className="text-base">Full Name</span>
                 </label>
+                <input
+                  type="text"
+                  placeholder="Full name"
+                  name="fullname"
+                  className="w-full input input-bordered  h-10  text-black"
+                  onChange={getValue}
+                />
               </div>
-              <div className="form-control">
-                <label
-                  className={`label gap-2 cursor-pointer ${
-                    inputs.gender === "female" ? "selected" : ""
-                  }`}
-                >
-                  <span>Female</span>
-                  <input
-                    type="checkbox"
-                    className="checkbox border-slate-300 bg-white text-black"
-                    name="gender"
-                    onChange={() => handleCheckboxChange("female")}
-                    checked={inputs.gender === "female"}
-                  />
+
+              <div>
+                <label className="label p-2 ">
+                  <span className="text-base">Username</span>
                 </label>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  onChange={getValue}
+                  className="w-full input input-bordered h-10  text-black"
+                />
               </div>
-            </div>
+              <div>
+                <label className="label">
+                  <span className="text-base">Password</span>
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  onChange={getValue}
+                  placeholder="Enter Password"
+                  className="w-full input input-bordered h-10  text-black"
+                />
+              </div>
 
-            <Link
-              className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
-              to="/login"
-            >
-              Already have an account?
-            </Link>
+              <div>
+                <label className="label">
+                  <span className="text-base">Confirm Password</span>
+                </label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  onChange={getValue}
+                  placeholder="Confirm Password"
+                  className="w-full input input-bordered h-10  text-black"
+                />
+              </div>
 
-            <div>
-              <button className="btn btn-block btn-sm mt-2 border border-slate-700 hover:bg-blue-500 hover:border-none">
-                Sign Up
-              </button>
-            </div>
-          </form>
+              {/* Gender Button here */}
+              <div className="flex">
+                <div className="form-control">
+                  <label
+                    className={`label gap-2 cursor-pointer ${
+                      inputs.gender === "male" ? "selected" : ""
+                    }`}
+                  >
+                    <span>Male</span>
+                    <input
+                      type="checkbox"
+                      name="gender"
+                      className={`checkbox border-slate-300 bg-white  text-black`}
+                      checked={inputs.gender === "male"}
+                      onChange={() => handleCheckboxChange("male")}
+                    />
+                  </label>
+                </div>
+                <div className="form-control">
+                  <label
+                    className={`label gap-2 cursor-pointer ${
+                      inputs.gender === "female" ? "selected" : ""
+                    }`}
+                  >
+                    <span>Female</span>
+                    <input
+                      type="checkbox"
+                      className="checkbox border-slate-300 bg-white text-black"
+                      name="gender"
+                      onChange={() => handleCheckboxChange("female")}
+                      checked={inputs.gender === "female"}
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <Link
+                className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
+                to="/login"
+              >
+                Already have an account?
+              </Link>
+
+              <div>
+                <button className="btn btn-block btn-sm mt-2 border border-slate-700 hover:bg-blue-500 hover:border-none">
+                  Sign Up
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
       </div>
     </>
   );

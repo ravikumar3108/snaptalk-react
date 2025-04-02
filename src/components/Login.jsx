@@ -61,7 +61,7 @@ function Login() {
       <Toaster />
       <div className="p-4 h-screen flex items-center justify-center bg-dark1 text-white">
         <div className="flex flex-col justify-center min-w-96 mx-auto">
-          <div className="xl:w-full lg:w-full md:w-full p-6 rounded-lg shadow-md shadow-slate-300">
+          <div className="xl:w-full lg:w-full md:w-full p-6 rounded-lg shadow-md shadow-slate-300 mx-4">
             <h1 className="text-3xl font-semibold text-center text-gray-300">
               Login <span className="text-blue-500">ChatApp</span>
             </h1>
