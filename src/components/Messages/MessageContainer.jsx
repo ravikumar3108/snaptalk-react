@@ -23,7 +23,7 @@ function MessageContainer() {
       <div className="md:min-w-[450px] w-full flex flex-col msg-cont h-[100vh]">
         {selectedConversation ? (
           <>
-            <div className="bg-slate-500 py-2 mb-2 flex justify-between px-4 sticky top-0 left-0 z-99">
+            <div className="bg-slate-500 py-2 mb-2 flex justify-between px-4 sticky top-0 left-0 z-[9999]">
               <div className="flex">
                 <Link to={"/"}>
                   <TiArrowBackOutline className="text-2xl text-white mt-2" />
