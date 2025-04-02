@@ -28,8 +28,8 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const success = await handleInputError(loginData);
-    // if (!success) return;
+    const success = await handleInputError(loginData);
+    if (!success) return;
     try {
       const lgoin = await axios
         .post("https://snaptalk-back.vercel.app/api/auth/login", loginData)
@@ -43,7 +43,7 @@ function Login() {
             localStorage.setItem("chat-user", JSON.stringify(res.data.user));
             //  context
             setAuthUser(res.data.user);
-            toast.success("logged in");
+            toast.success("Successfull Login");
             setTimeout(() => {
               navigate("/");
             }, 1000);
@@ -60,7 +60,7 @@ function Login() {
     <>
       <Toaster />
       <div className="p-4 h-screen flex items-center justify-center bg-dark1 text-white">
-        <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
+        <div className="flex flex-col justify-center min-w-96 mx-auto">
           <div className="xl:w-full lg:w-full md:w-full p-6 rounded-lg shadow-md shadow-slate-300">
             <h1 className="text-3xl font-semibold text-center text-gray-300">
               Login <span className="text-blue-500">ChatApp</span>

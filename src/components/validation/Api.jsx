@@ -10,7 +10,7 @@ let Api = axios.create({
   baseURL: API_URL,
   headers: {
     Authorization: `Bearer ${getToken()}`,
-    Accept: "application/json",
+    Accept: "*/*",
   },
 });
 Api.interceptors.request.use(

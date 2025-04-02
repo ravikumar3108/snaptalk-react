@@ -57,7 +57,7 @@ function Signup() {
         .post("https://snaptalk-back.vercel.app/api/auth/signup", inputs)
         .then((res) => {
           if(res.data.status === true){
-            toast.success("Account Created")
+            toast.success("Account Created Successfull")
           }
           else if(res.data.status === false){
             toast.error("User already registered...")
