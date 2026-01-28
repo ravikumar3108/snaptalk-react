@@ -8,32 +8,21 @@ function MessageInput() {
   const [loading, setLoading] = useState(false);
   const [currentMsg, setCurrentMsg] = useState(""); // Default value string honi chahiye
   const { messages, setMessages, selectedConversation } = useConversation();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // 1. Khali message send karne se rokna
-    if (!currentMsg.trim()) return;
+    if (!currentMsg.trim()) return; // Khali message na bhejein
 
     setLoading(true);
     try {
       const main = new Listings();
-      
-      // 2. Selected conversation ki ID aur message string bhejna
-      // Dhyaan dein: currentMsg ab ek simple string hai
       const res = await main.sendMessages(selectedConversation._id, currentMsg);
-      
-      if (res.data) {
-        // 3. UI update: Purane messages + naya message
-        setMessages([...messages, res.data]);
-        
-        // 4. Input field ko khali karna
-        setCurrentMsg(""); 
-        // toast.success("Message sent"); // Optional: WhatsApp mein toast nahi hota
-      }
+
+      const data = res.data;
+      setMessages([...messages, data]);
+      toast.success("sent");
+      setCurrentMsg(""); // Clear state correctly as a string
     } catch (error) {
-      console.error("Error sending message:", error);
-      toast.error(error.message || "Failed to send message");
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -42,7 +31,6 @@ function MessageInput() {
   return (
     /* WhatsApp Bottom Input Bar Style */
     <div className="bg-[#202c33] px-4 py-2 flex items-center gap-4 border-t border-[#313d45]/50">
-      
       {/* Emoji and Attachment Icons */}
       <div className="flex items-center gap-4 text-[#aebac1]">
         <MdMood className="text-2xl cursor-pointer hover:text-white transition-colors" />
@@ -63,8 +51,8 @@ function MessageInput() {
       </form>
 
       {/* Send Button */}
-      <button 
-        type="button" 
+      <button
+        type="button"
         onClick={handleSubmit}
         disabled={loading || !currentMsg.trim()}
         className="flex items-center justify-center p-1"
@@ -72,10 +60,10 @@ function MessageInput() {
         {loading ? (
           <span className="loading loading-spinner loading-xs text-[#aebac1]"></span>
         ) : (
-          <MdSend 
+          <MdSend
             className={`text-2xl transition-all ${
               currentMsg.trim() ? "text-[#00a884] scale-110" : "text-[#aebac1]"
-            }`} 
+            }`}
           />
         )}
       </button>
