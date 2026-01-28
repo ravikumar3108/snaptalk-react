@@ -11,7 +11,27 @@ function MessageList() {
   const { messages, setMessages, selectedConversation } = useConversation();
   useListenMessages();
   const lastMessageRef = useRef();
-  // useref is used to redirect auto to the last messages of our chat
+
+  useEffect(() => {
+    // Function ko andar move kar diya taaki dependency error na aaye
+    const chatMessages = async () => {
+      if (!selectedConversation?._id) return;
+      setLoading(true);
+      try {
+        const main = new Listings();
+        const res = await main.getMessages(selectedConversation._id);
+        setMessages(res.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    chatMessages();
+
+    // Sirf selectedConversation._id aur setMessages par depend karega
+  }, [selectedConversation?._id, setMessages]);
 
   useEffect(() => {
     setTimeout(() => {
