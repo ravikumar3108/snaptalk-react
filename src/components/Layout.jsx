@@ -3,8 +3,8 @@ import Home from "./Home";
 
 function Layout({ children, protect }) {
   return (
-    <div>
-      <Home protect={true}>{children}</Home>
+    <div protect>
+      <Home>{children}</Home>
     </div>
   );
 }
