@@ -1,46 +1,51 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useConversation from "../Zustand/useConversation";
 import { useSocketContext } from "../validation/socketContext";
 import girl from "../images/girl.jpg";
 import boy from "../images/boy.jpg";
-import { useSearchParams } from "react-router-dom";
 
-function Conversation({ conversationdata, emoji, lastIndex }) {
-  
+function Conversation({ conversationdata, lastIndex }) {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const isSelected = selectedConversation?._id === conversationdata._id;
   const { onlineUser } = useSocketContext();
   const isOnline = onlineUser.includes(conversationdata._id);
 
   return (
-    <>
-      <div
-        className={`flex items-center gap-2 hover:bg-sky-500 border-y-2 rounded p-2 py-1 cursor-pointer my-1
-        ${isSelected ? "bg-sky-500" : ""}
-        `}
-        onClick={() => {
-          setSelectedConversation(conversationdata);
-        }}
-      >
-        <div className={`avatar w-1/5 ${isOnline ? "online" : ""}`}>
-          <div className="w-24 rounded-full">
-            <img
-              src={`${conversationdata.gender == "female" ? girl : boy}`}
-              alt="profilepic"
-            />
-          </div>
+    <div
+      className={`flex items-center gap-3 px-3 py-3 cursor-pointer transition-all
+      ${isSelected ? "bg-[#2a3942]" : "hover:bg-[#202c33]"}
+      `}
+      onClick={() => setSelectedConversation(conversationdata)}
+    >
+      {/* Avatar with Online Indicator */}
+      <div className="relative">
+        <div className="w-12 h-12 rounded-full overflow-hidden">
+          <img
+            src={conversationdata.gender === "female" ? girl : boy}
+            alt="profile"
+            className="object-cover w-full h-full"
+          />
         </div>
-
-        <div className="flex flex-col flex-1">
-          <div className="flex gap-3 justify-between">
-            <p className="font-bold">{conversationdata.fullname}</p>
-            <span className="text-xl">{emoji}</span>
-          </div>
-        </div>
+        {isOnline && (
+          <div className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-[#00a884] border-2 border-[#111b21] rounded-full"></div>
+        )}
       </div>
 
-      {lastIndex && <div className="divider my-0 py-0 h-1"></div>}
-    </>
+      {/* Info Section */}
+      <div className={`flex flex-col flex-1 border-b border-[#222e35] pb-3 ${lastIndex ? "border-none" : ""}`}>
+        <div className="flex justify-between items-center">
+          <p className="text-[#e9edef] text-base font-normal truncate">
+            {conversationdata.fullname}
+          </p>
+          <span className="text-[11px] text-[#8696a0]">12:45 PM</span>
+        </div>
+        <div className="flex justify-between items-center mt-1">
+          <p className="text-sm text-[#8696a0] truncate w-60">
+            Click to start chatting...
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -3,18 +3,33 @@ import SearchInput from './SearchInput'
 import ConversationList from './ConversationList'
 import Logoutbtn from './Logoutbtn'
 import MyProfile from './MyProfile'
-import { FaBars } from "react-icons/fa6";
-
-
 
 function Sidebar() {
   return (
-    <div className='border-r border-slate-500 p-4 h-full flex flex-col bg-dark3 text-white w-full'>
-      {/* <FaBars className='text-2xl ml-3'/> */}
-      <MyProfile/>
-      <SearchInput/>
-      {/* <div className="divider px-3 text-white"></div>  */}
-      <ConversationList/>
+    /* Desktop par width fix rakhenge (common WhatsApp width 30% or 400px), 
+       aur mobile par ise full width handle karenge parent component mein.
+    */
+    <div className='flex flex-col h-full w-full md:w-[400px] bg-[#111b21] border-r border-[#222e35] overflow-hidden'>
+      
+      {/* 1. Header: Profile and Actions Area */}
+      <div className='bg-[#202c33] px-4 py-3 flex items-center justify-between'>
+        <MyProfile />
+        <div className='flex items-center gap-4 text-[#aebac1]'>
+          {/* Aap yahan extra icons (Status, New Chat) add kar sakte hain baad mein */}
+          <Logoutbtn />
+        </div>
+      </div>
+
+      {/* 2. Search Section: Sticky below header */}
+      <div className='p-2 bg-[#111b21] border-b border-[#222e35]'>
+        <SearchInput />
+      </div>
+
+      {/* 3. Conversation List: Scrollable area */}
+      <div className='flex-1 overflow-y-auto custom-scrollbar bg-[#111b21]'>
+        <ConversationList />
+      </div>
+
     </div>
   )
 }

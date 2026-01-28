@@ -1,35 +1,30 @@
-import React, { useEffect } from "react";
-import useConversation from "../Zustand/useConversation";
-import Listings from "../validation/Listing";
+import React from "react";
 import { useAuthContext } from "../validation/AuthUser";
 import { extractTime } from "../utils/extractTime";
 
 function Message({ message }) {
-
   const { authUser } = useAuthContext();
-  const { selectedConversation } = useConversation();
   const fromMe = message.senderId === authUser._id;
   const formattedTime = extractTime(message.createdAt);
-  const chatClassName = fromMe ? "chat-end" : "chat-start";
-  const profilePic = fromMe
-    ? authUser.profilePic
-    : selectedConversation?.profilePic;
-  const bubbleBgColor = fromMe ? "bg-blue-500" : "";
 
   return (
-    <>
-      <div className={`chat ${chatClassName}`}>
-        <div className="chat-image avatar">
-          <div className="w-10 rounded-full">
-            <img alt="Tailwind CSS chat bubble component" src={profilePic} />
-          </div>
+    <div className={`flex w-full mb-1 ${fromMe ? "justify-end" : "justify-start"}`}>
+      <div
+        className={`relative max-w-[65%] px-3 py-1.5 shadow-sm rounded-lg text-[14.2px] 
+        ${fromMe 
+          ? "bg-[#005c4b] text-[#e9edef] rounded-tr-none" 
+          : "bg-[#202c33] text-[#e9edef] rounded-tl-none"}
+        `}
+      >
+        <p className="leading-relaxed pr-10">{message.message}</p>
+        <div className="absolute bottom-1 right-2 flex items-center gap-1">
+          <span className="text-[10px] text-[#8696a0] uppercase">{formattedTime}</span>
+          {fromMe && (
+            <span className="text-[#53bdeb] text-xs">✓✓</span>
+          )}
         </div>
-        <div className={`chat-bubble text-white ${bubbleBgColor} pb-2`}>
-          {message.message}
-        </div>
-        <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">{formattedTime}</div>
       </div>
-    </>
+    </div>
   );
 }
 

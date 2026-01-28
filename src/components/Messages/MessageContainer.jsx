@@ -1,65 +1,64 @@
-import React, { useEffect } from "react";
+import React from "react";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
 import { TiMessages } from "react-icons/ti";
 import useConversation from "../Zustand/useConversation";
 import { useAuthContext } from "../validation/AuthUser";
 import UsersProfile from "./UsersProfile";
-import { TiArrowBackOutline } from "react-icons/ti";
-import { Link } from "react-router-dom";
-import { IoCall } from "react-icons/io5";
-import { FaVideo } from "react-icons/fa";
+import { MdSearch, MdMoreVert, MdCall, MdVideocam } from "react-icons/md";
 
 function MessageContainer() {
-  const { selectedConversation, setSelectedConversation } = useConversation();
-
-  // useEffect(() => {
-  //   // cleanup function (unmounted)
-  //   return () => setSelectedConversation(null);
-  // }, [setSelectedConversation]);
+  const { selectedConversation } = useConversation();
 
   return (
-    <>
-      <div className="md:min-w-[450px] w-full flex flex-col msg-cont h-[100vh]">
-        {selectedConversation ? (
-          <>
-            <div className="bg-slate-500 py-2 mb-2 flex justify-between px-4 sticky top-0 left-0 z-[9999]">
-              <div className="flex">
-                <Link to={"/"}>
-                  <TiArrowBackOutline className="text-2xl text-white mt-2" />
-                </Link>
-                <UsersProfile />
-              </div>
-              <div className="flex">
-                <FaVideo className="text-2xl text-white mt-2 mr-4" />
-                <IoCall className="text-2xl text-white mt-2" />
-              </div>
+    <div className="flex flex-col h-full w-full bg-[#0b141a] relative">
+      {selectedConversation ? (
+        <>
+          {/* WhatsApp Chat Header */}
+          <div className="bg-[#202c33] py-2.5 px-4 flex justify-between items-center z-10">
+            <UsersProfile />
+            <div className="flex items-center gap-6 text-[#aebac1]">
+              <MdVideocam className="text-xl cursor-pointer hover:text-white" />
+              <MdCall className="text-xl cursor-pointer hover:text-white" />
+              <div className="w-[1px] h-6 bg-[#3b4a54] mx-1"></div>
+              <MdSearch className="text-xl cursor-pointer hover:text-white" />
+              <MdMoreVert className="text-xl cursor-pointer hover:text-white" />
             </div>
+          </div>
+
+          {/* Chat Background Doodle effect (using a CSS pattern or simple dark bg) */}
+          <div className="flex-1 overflow-hidden relative bg-[#0b141a] bg-opacity-95">
             <MessageList />
-            <MessageInput />
-          </>
-        ) : (
-          <>
-            {/* Header */}
-            <NoChatSelected />
-          </>
-        )}
-      </div>
-    </>
+          </div>
+          
+          <MessageInput />
+        </>
+      ) : (
+        <NoChatSelected />
+      )}
+    </div>
   );
 }
-
-export default MessageContainer;
 
 const NoChatSelected = () => {
   const { authUser } = useAuthContext();
   return (
-    <div className="flex items-center justify-center w-full h-full">
-      <div className="px-4 text-center sm:text-lg md:text-xl text-white font-semibold flex flex-col items-center gap-2">
-        <p>Welcome 👋 {authUser && authUser.fullname} ❄</p>
-        <p>Select a chat to start messaging</p>
-        <TiMessages className="text-3xl md:text-6xl text-center" />
+    <div className="flex items-center justify-center w-full h-full bg-[#222e35] border-l border-[#313d45]">
+      <div className="px-4 text-center flex flex-col items-center gap-4">
+        <div className="w-64 h-64 mb-4 opacity-20">
+            <TiMessages className="w-full h-full text-[#8696a0]" />
+        </div>
+        <h1 className="text-3xl font-light text-[#e9edef]">SnapTalk Web</h1>
+        <p className="text-[#8696a0] text-sm max-w-md">
+          Send and receive messages without keeping your phone online.<br/>
+          Use SnapTalk on up to 4 linked devices and 1 phone at the same time.
+        </p>
+        <div className="mt-8 flex items-center gap-2 text-[#8696a0] text-xs">
+           <span>🔒 End-to-end encrypted</span>
+        </div>
       </div>
     </div>
   );
 };
+
+export default MessageContainer;

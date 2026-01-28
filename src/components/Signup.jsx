@@ -11,7 +11,6 @@ function Signup() {
     confirmPassword: "",
     gender: "",
   });
-  console.log(inputs);
 
   const getValue = (e) => {
     setInputs({
@@ -24,25 +23,17 @@ function Signup() {
     setInputs({ ...inputs, gender });
   };
 
-  async function handleInputError({
-    fullname,
-    username,
-    password,
-    confirmPassword,
-    gender,
-  }) {
+  async function handleInputError({ fullname, username, password, confirmPassword, gender }) {
     if (!fullname || !username || !password || !confirmPassword || !gender) {
-      toast.error("fill all the fields");
+      toast.error("Please fill all the fields");
       return false;
     }
-
     if (password !== confirmPassword) {
-      toast.error("confirm password is not matched");
+      toast.error("Passwords do not match");
       return false;
     }
-
     if (password.length < 6) {
-      toast.error("Password must be at 6 character");
+      toast.error("Password must be at least 6 characters");
       return false;
     }
     return true;
@@ -53,17 +44,12 @@ function Signup() {
     const success = await handleInputError(inputs);
     if (!success) return;
     try {
-      await axios
-        .post("https://snaptalk-back.vercel.app/api/auth/signup", inputs)
-        .then((res) => {
-          if (res.data.status === true) {
-            toast.success("Account Created Successfull");
-          } else if (res.data.status === false) {
-            toast.error("User already registered...");
-          } else {
-            toast("Create new account");
-          }
-        });
+      const res = await axios.post("https://snaptalk-back.vercel.app/api/auth/signup", inputs);
+      if (res.data.status === true) {
+        toast.success("Account Created Successfully");
+      } else {
+        toast.error(res.data.message || "User already registered...");
+      }
     } catch (error) {
       toast.error(error.message);
     }
@@ -72,115 +58,109 @@ function Signup() {
   return (
     <>
       <Toaster />
-      <div className="p-4 h-screen flex items-center justify-center bg-dark1 text-white">
-        <div className="flex flex-col justify-center min-w-96 mx-auto">
-          <div className="xl:w-full lg:w-full md:w-full  p-6 rounded-lg shadow-md mx-4 shadow-slate-300">
-            <h1 className="text-3xl font-semibold text-center text-gray-300">
-              Sign Up <span className="text-blue-500"> ChatApp</span>
+      <div className="min-h-screen w-full flex items-center justify-center bg-[#111b21] relative overflow-x-hidden py-10 md:py-0">
+        
+        {/* Top Green Bar */}
+        <div className="absolute top-0 left-0 w-full h-[150px] md:h-[220px] bg-[#00a884]"></div>
+
+        {/* Signup Card */}
+        <div className="z-10 bg-[#f0f2f5] dark:bg-[#222e35] shadow-2xl 
+                        w-full h-full sm:h-auto sm:max-w-[500px] 
+                        sm:rounded-sm p-6 md:p-10 flex flex-col justify-center mx-4">
+          
+          <div className="text-center mb-6">
+            <h1 className="text-2xl md:text-[28px] font-light text-[#41525d] dark:text-[#e9edef]">
+              Create Account
             </h1>
+            <p className="text-[#667781] text-xs mt-2">Join SnapTalk to start messaging</p>
+          </div>
 
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label className="label p-2">
-                  <span className="text-base">Full Name</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Full name"
-                  name="fullname"
-                  className="w-full input input-bordered  h-10  text-black"
-                  onChange={getValue}
-                />
-              </div>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Full Name */}
+            <div className="relative border-b border-[#e9edef] dark:border-[#3b4a54] pb-1">
+              <label className="text-[11px] text-[#00a884] font-medium block uppercase tracking-wider">Full Name</label>
+              <input
+                type="text"
+                name="fullname"
+                placeholder="Type Your Name"
+                className="bg-transparent w-full py-1.5 outline-none text-[#111b21] dark:text-[#d1d7db] placeholder-[#8696a0]/50 text-sm"
+                onChange={getValue}
+              />
+            </div>
 
-              <div>
-                <label className="label p-2 ">
-                  <span className="text-base">Username</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Username"
-                  name="username"
-                  onChange={getValue}
-                  className="w-full input input-bordered h-10  text-black"
-                />
-              </div>
-              <div>
-                <label className="label">
-                  <span className="text-base">Password</span>
-                </label>
+            {/* Username */}
+            <div className="relative border-b border-[#e9edef] dark:border-[#3b4a54] pb-1">
+              <label className="text-[11px] text-[#00a884] font-medium block uppercase tracking-wider">Username</label>
+              <input
+                type="text"
+                name="username"
+                placeholder="username123"
+                className="bg-transparent w-full py-1.5 outline-none text-[#111b21] dark:text-[#d1d7db] placeholder-[#8696a0]/50 text-sm"
+                onChange={getValue}
+              />
+            </div>
+
+            {/* Passwords Row (Responsive Grid) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="relative border-b border-[#e9edef] dark:border-[#3b4a54] pb-1">
+                <label className="text-[11px] text-[#00a884] font-medium block uppercase tracking-wider">Password</label>
                 <input
                   type="password"
                   name="password"
+                  placeholder="******"
+                  className="bg-transparent w-full py-1.5 outline-none text-[#111b21] dark:text-[#d1d7db] text-sm"
                   onChange={getValue}
-                  placeholder="Enter Password"
-                  className="w-full input input-bordered h-10  text-black"
                 />
               </div>
-
-              <div>
-                <label className="label">
-                  <span className="text-base">Confirm Password</span>
-                </label>
+              <div className="relative border-b border-[#e9edef] dark:border-[#3b4a54] pb-1">
+                <label className="text-[11px] text-[#00a884] font-medium block uppercase tracking-wider">Confirm</label>
                 <input
                   type="password"
                   name="confirmPassword"
+                  placeholder="******"
+                  className="bg-transparent w-full py-1.5 outline-none text-[#111b21] dark:text-[#d1d7db] text-sm"
                   onChange={getValue}
-                  placeholder="Confirm Password"
-                  className="w-full input input-bordered h-10  text-black"
                 />
               </div>
+            </div>
 
-              {/* Gender Button here */}
-              <div className="flex">
-                <div className="form-control">
-                  <label
-                    className={`label gap-2 cursor-pointer ${
-                      inputs.gender === "male" ? "selected" : ""
-                    }`}
-                  >
-                    <span>Male</span>
-                    <input
-                      type="checkbox"
-                      name="gender"
-                      className={`checkbox border-slate-300 bg-white  text-black`}
-                      checked={inputs.gender === "male"}
-                      onChange={() => handleCheckboxChange("male")}
-                    />
-                  </label>
-                </div>
-                <div className="form-control">
-                  <label
-                    className={`label gap-2 cursor-pointer ${
-                      inputs.gender === "female" ? "selected" : ""
-                    }`}
-                  >
-                    <span>Female</span>
-                    <input
-                      type="checkbox"
-                      className="checkbox border-slate-300 bg-white text-black"
-                      name="gender"
-                      onChange={() => handleCheckboxChange("female")}
-                      checked={inputs.gender === "female"}
-                    />
-                  </label>
-                </div>
+            {/* Gender Selection */}
+            <div className="flex gap-6 pt-2">
+              <span className="text-sm text-[#667781]">Gender:</span>
+              <div className="flex items-center gap-4">
+                <label className="flex items-center gap-2 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 accent-[#00a884] cursor-pointer"
+                    checked={inputs.gender === "male"}
+                    onChange={() => handleCheckboxChange("male")}
+                  />
+                  <span className={`text-sm ${inputs.gender === "male" ? "text-[#00a884] font-medium" : "text-[#667781]"}`}>Male</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 accent-[#00a884] cursor-pointer"
+                    checked={inputs.gender === "female"}
+                    onChange={() => handleCheckboxChange("female")}
+                  />
+                  <span className={`text-sm ${inputs.gender === "female" ? "text-[#00a884] font-medium" : "text-[#667781]"}`}>Female</span>
+                </label>
               </div>
+            </div>
 
-              <Link
-                className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
-                to="/login"
-              >
-                Already have an account?
+            <div className="text-center pt-2">
+              <Link to="/login" className="text-xs text-[#667781] hover:text-[#00a884] transition-colors">
+                Already have an account? <span className="text-[#00a884] font-semibold underline underline-offset-4">Login here</span>
               </Link>
+            </div>
 
-              <div>
-                <button className="btn btn-block btn-sm mt-2 border border-slate-700 hover:bg-blue-500 hover:border-none">
-                  Sign Up
-                </button>
-              </div>
-            </form>
-          </div>
+            <div className="flex justify-center pt-4">
+              <button className="bg-[#00a884] text-white w-full px-10 py-3 rounded-md font-medium hover:bg-[#06cf9c] transition-all shadow-md active:scale-95 uppercase text-sm tracking-wider">
+                Sign Up
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </>

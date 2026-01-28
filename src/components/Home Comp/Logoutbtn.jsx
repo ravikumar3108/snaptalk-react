@@ -5,31 +5,28 @@ import { useAuthContext } from "../validation/AuthUser";
 
 function Logoutbtn() {
   const [loading, setLoading] = useState(false);
-  const nav = useNavigate()
-  const { authUser, setAuthUser } = useAuthContext();
+  const nav = useNavigate();
+  const { setAuthUser } = useAuthContext();
 
   function handleLogout() {
     setLoading(true);
-    try {
-      localStorage.removeItem("chat-user");
-      localStorage.removeItem("token");
-      setAuthUser(null)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setLoading(false);
-      nav("/login")
-    }
+    localStorage.removeItem("chat-user");
+    localStorage.removeItem("token");
+    setAuthUser(null);
+    nav("/login");
   }
   
   return (
-    <div className="mt-auto">
-     {!loading ? (
-        <BiLogOut className="w-6 h-6 text-white cursor-pointer" onClick={handleLogout} />
-     ) : 
-     <span className="loading loading-spinner"></span>
-    }
-    </div>
+    <button 
+      onClick={handleLogout}
+      className="bg-gradient-magic-button-custom flex items-center justify-center p-2 rounded-full hover:opacity-80 transition-all"
+    >
+      {!loading ? (
+        <BiLogOut className="w-5 h-5 text-white" />
+      ) : (
+        <span className="loading loading-spinner loading-xs"></span>
+      )}
+    </button>
   );
 }
 

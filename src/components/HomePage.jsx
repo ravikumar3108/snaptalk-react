@@ -8,7 +8,7 @@ function HomePage() {
     <>
       <Home protect={true}>
         <Sidebar />
-        {/* <MessageContainer /> */}
+        <MessageContainer />
       </Home>
     </>
   );
