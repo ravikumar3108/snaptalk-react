@@ -6,19 +6,19 @@ class Listings extends Component {
     return Api.get(`/api/auth/profile`);
   }
 
-  async getConversationList() {
+  async getConversationList(data) {
     return Api.get("/api/users");
   }
 
   async sendMessages(id, data) {
-    let receiverId = id;
-    // FIX: String ko object mein wrap karke bhejna zaroori hai
-    return Api.post(`/api/messages/send/${receiverId}`, { message: data });
+    let receiverId = id
+    let message = data
+    return Api.post(`/api/messages/send/${receiverId}`, message);
   }
 
   async getMessages(id) {
-    // Note: Get messages ke liye aksar GET use hota hai, par agar aapka backend POST mang raha hai toh thik hai
-    return Api.get(`/api/messages/${id}`); 
+    let receiverId = id
+    return Api.post(`/api/messages/${receiverId}`);
   }
 
   render() {
