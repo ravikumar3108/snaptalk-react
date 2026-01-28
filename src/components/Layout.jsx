@@ -1,14 +1,12 @@
-import React, { Children } from 'react'
-import Home from './Home'
+import React, { Children } from "react";
+import Home from "./Home";
 
-function Layout({children,protect}) {
+function Layout({ children, protect }) {
   return (
     <div>
-      <Home>
-        {children}
-      </Home>
+      <Home protect={true}>{children}</Home>
     </div>
-  )
+  );
 }
 
-export default Layout
+export default Layout;
