@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Message from "./Message";
-import axios from "axios";
 import Listings from "../validation/Listing";
 import useConversation from "../Zustand/useConversation";
 import MessageSkeleton from "./MessageSkeleton";
@@ -11,27 +10,7 @@ function MessageList() {
   const { messages, setMessages, selectedConversation } = useConversation();
   useListenMessages();
   const lastMessageRef = useRef();
-
-  useEffect(() => {
-    // Function ko andar move kar diya taaki dependency error na aaye
-    const chatMessages = async () => {
-      if (!selectedConversation?._id) return;
-      setLoading(true);
-      try {
-        const main = new Listings();
-        const res = await main.getMessages(selectedConversation._id);
-        setMessages(res.data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    chatMessages();
-
-    // Sirf selectedConversation._id aur setMessages par depend karega
-  }, [selectedConversation?._id, setMessages]);
+  // useref is used to redirect auto to the last messages of our chat
 
   useEffect(() => {
     setTimeout(() => {
@@ -41,11 +20,9 @@ function MessageList() {
 
   const chatMessages = async () => {
     const main = new Listings();
-    const response = await main
-      .getMessages(selectedConversation._id)
-      .then((res) => {
-        setMessages(res.data);
-      });
+    await main.getMessages(selectedConversation._id).then((res) => {
+      setMessages(res.data);
+    });
   };
 
   useEffect(() => {
