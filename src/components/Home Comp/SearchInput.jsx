@@ -18,7 +18,7 @@ function SearchInput() {
     e.preventDefault();
     if (!search) return;
     const conversation = conversationdata.find((c) =>
-      c.fullname.toLowerCase().includes(search.toLowerCase())
+      c.fullname.toLowerCase().includes(search.toLowerCase()),
     );
     if (conversation) {
       setSelectedConversation(conversation);
@@ -27,21 +27,27 @@ function SearchInput() {
   };
 
   return (
-    <div className="p-2 flex items-center gap-2 bg-[#111b21]">
-      <div className="relative flex items-center bg-[#202c33] rounded-lg px-3 py-1.5 w-full">
-        <MdSearch className="text-[#8696a0] text-xl mr-4" />
-        <form onSubmit={handleSearch} className="w-full">
-          <input
-            type="text"
-            placeholder="Search or start new chat"
-            className="bg-transparent text-[#d1d7db] text-sm outline-none w-full placeholder:text-[#8696a0]"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </form>
+    <>
+      <Toaster />
+      <div className="p-2 flex items-center gap-2 bg-[#111b21]">
+        <div className="relative flex items-center bg-[#202c33] rounded-lg px-3 py-1.5 w-full">
+          <MdSearch className="text-[#8696a0] text-xl mr-4" />
+          <form onSubmit={handleSearch} className="w-full">
+            <input
+              type="text"
+              placeholder="Search or start new chat"
+              className="bg-transparent text-[#d1d7db] text-sm outline-none w-full placeholder:text-[#8696a0]"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </form>
+        </div>
+        <MdFilterList
+          className="text-[#8696a0] text-xl cursor-pointer"
+          title="Unread filter"
+        />
       </div>
-      <MdFilterList className="text-[#8696a0] text-xl cursor-pointer" title="Unread filter" />
-    </div>
+    </>
   );
 }
 

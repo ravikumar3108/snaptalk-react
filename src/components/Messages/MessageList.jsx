@@ -8,45 +8,63 @@ import useListenMessages from "./useListenMessages";
 function MessageList() {
   const [loading, setLoading] = useState(false);
   const { messages, setMessages, selectedConversation } = useConversation();
+  
+  // Custom hook to listen for new socket messages
   useListenMessages();
+  
   const lastMessageRef = useRef();
-  // useref is used to redirect auto to the last messages of our chat
 
+  // Scroll to bottom whenever messages change
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 100);
+    return () => clearTimeout(timeoutId);
   }, [messages]);
 
-  const chatMessages = async () => {
-    const main = new Listings();
-    await main.getMessages(selectedConversation._id).then((res) => {
-      setMessages(res.data);
-    });
-  };
-
+  // Fetch chat history whenever selected conversation changes
   useEffect(() => {
+    const chatMessages = async () => {
+      if (!selectedConversation?._id) return;
+      
+      setLoading(true);
+      try {
+        const main = new Listings();
+        const res = await main.getMessages(selectedConversation._id);
+        if (res.data) {
+          setMessages(res.data);
+        }
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     chatMessages();
-  }, [messages]);
+  }, [selectedConversation?._id, setMessages]); // Minimal dependencies to prevent loops
 
   return (
-    <div className="px-4 flex-1 overflow-auto">
+    <div className="px-4 flex-1 overflow-auto bg-[#0b141a] custom-scrollbar py-4">
+      {/* Loading Skeletons */}
+      {loading && [...Array(5)].map((_, idx) => <MessageSkeleton key={idx} />)}
+
+      {/* Render Messages */}
       {!loading &&
         messages.length > 0 &&
-        messages.map((item) => {
-          return (
-            <>
-              <div key={item._id} ref={lastMessageRef}>
-                <Message message={item} />
-              </div>
-            </>
-          );
-        })}
+        messages.map((item) => (
+          <div key={item._id} ref={lastMessageRef}>
+            <Message message={item} />
+          </div>
+        ))}
 
-      {loading && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
-
+      {/* Empty State */}
       {!loading && messages.length === 0 && (
-        <p className="text-center">Send a message to start the conversation</p>
+        <div className="flex flex-col items-center justify-center h-full opacity-50">
+          <p className="bg-[#182229] text-[#8696a0] px-4 py-1 rounded-md text-sm">
+            Send a message to start the conversation
+          </p>
+        </div>
       )}
     </div>
   );

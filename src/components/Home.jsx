@@ -7,36 +7,36 @@ function Home({ children, protect }) {
   const { setAuthUser } = useAuthContext();
   const navigate = useNavigate();
 
-  async function profile() {
-    const main = new Listings();
-    main
-      .profile()
-      .then((res) => {
-        if (res.data.status) {
-          setAuthUser(res.data.user);
-        } else {
-          setAuthUser(null);
-          navigate("/login");
-        }
-      })
-      .catch((err) => {
-        console.log("error in profile", err);
-      });
-  }
-
   useEffect(() => {
+    const profile = async () => {
+      const main = new Listings();
+      main
+        .profile()
+        .then((res) => {
+          if (res.data.status) {
+            setAuthUser(res.data.user);
+          } else {
+            setAuthUser(null);
+            navigate("/login");
+          }
+        })
+        .catch((err) => {
+          console.log("error in profile", err);
+        });
+    };
+
     if (protect) {
       profile();
     }
-  }, []);
+    // Fixed dependencies to avoid build errors
+  }, [protect, navigate, setAuthUser]);
 
   return (
-    /* Background Layer: WhatsApp Dark Theme */
-    <div className="w-full h-screen bg-[#0c1317] flex justify-center items-center relative overflow-hidden">
-      {/* Top Green Accent Bar (Desktop only) */}
+    <div className="w-full h-screen bg-[#0c1317] flex justify-center items-center relative overflow-hidden font-sans">
+      {/* WhatsApp Web Style Top Green Bar */}
       <div className="absolute top-0 left-0 w-full h-[120px] bg-[#00a884] hidden md:block"></div>
 
-      {/* Main Chat Container */}
+      {/* Main Container */}
       <div
         className="z-10 bg-[#222e35] 
                    w-full h-full 

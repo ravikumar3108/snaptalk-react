@@ -30,7 +30,7 @@ function MessageContainer() {
           <div className="flex-1 overflow-hidden relative bg-[#0b141a] bg-opacity-95">
             <MessageList />
           </div>
-          
+
           <MessageInput />
         </>
       ) : (
@@ -41,24 +41,18 @@ function MessageContainer() {
 }
 
 const NoChatSelected = () => {
-  const { authUser } = useAuthContext();
+  const { authUser } = useAuthContext(); // Yahan use ho raha hai
   return (
-    <div className="flex items-center justify-center w-full h-full bg-[#222e35] border-l border-[#313d45]">
+    <div className="flex items-center justify-center w-full h-full bg-[#222e35]">
       <div className="px-4 text-center flex flex-col items-center gap-4">
-        <div className="w-64 h-64 mb-4 opacity-20">
-            <TiMessages className="w-full h-full text-[#8696a0]" />
-        </div>
-        <h1 className="text-3xl font-light text-[#e9edef]">SnapTalk Web</h1>
-        <p className="text-[#8696a0] text-sm max-w-md">
-          Send and receive messages without keeping your phone online.<br/>
-          Use SnapTalk on up to 4 linked devices and 1 phone at the same time.
+        <h1 className="text-3xl font-light text-[#e9edef]">
+          Welcome 👋 {authUser?.fullname}
+        </h1>
+        <p className="text-[#8696a0] text-sm">
+          Select a chat to start messaging
         </p>
-        <div className="mt-8 flex items-center gap-2 text-[#8696a0] text-xs">
-           <span>🔒 End-to-end encrypted</span>
-        </div>
       </div>
     </div>
   );
 };
-
 export default MessageContainer;

@@ -3,8 +3,6 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import {Route, Routes, } from 'react-router-dom';
 import HomePage from './components/HomePage';
-import Sidebar from './components/Home Comp/Sidebar';
-import Conversation from './components/Home Comp/Conversation';
 import MessageContainer from './components/Messages/MessageContainer';
 
 function App() {
