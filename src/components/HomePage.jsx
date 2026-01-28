@@ -6,7 +6,7 @@ import Home from "./Home";
 function HomePage() {
   return (
     <>
-      <Home protect={true}>
+      <Home>
         <Sidebar />
         <MessageContainer />
       </Home>
