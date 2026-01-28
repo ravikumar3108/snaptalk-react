@@ -13,35 +13,36 @@ export const SocketContextProvider = ({ children }) => {
   const [onlineUser, setOnlineUser] = useState([]);
   const { authUser } = useAuthContext();
 
-  useEffect(() => {
-    if (authUser) {
-      // variable ka naam 'newSocket' rakha hai taaki state wale 'socket' se clash na ho
-      const newSocket = io("https://snaptalk-back.vercel.app", {
-        query: {
-          userId: authUser._id,
-        },
-      });
+ useEffect(() => {
+  let newSocket; // Local variable for the socket instance
 
-      setSocket(newSocket);
+  if (authUser) {
+    newSocket = io("https://snaptalk-back.vercel.app", {
+      query: {
+        userId: authUser._id,
+      },
+    });
 
-      // Listen for online users
-      newSocket.on("getOnlineUsers", (users) => {
-        setOnlineUser(users);
-      });
+    setSocket(newSocket);
 
-      // Cleanup function
-      return () => {
-        newSocket.close();
-        setSocket(null); // Socket ko clear karna zaroori hai
-      };
-    } else {
-      if (socket) {
-        socket.close();
-        setSocket(null);
-      }
+    newSocket.on("getOnlineUsers", (users) => {
+      setOnlineUser(users);
+    });
+
+    // Cleanup: Jab component unmount hoga ya authUser change hoga
+    return () => {
+      newSocket.close();
+      setSocket(null);
+    };
+  } else {
+    // Agar authUser nahi hai, toh purane socket ko band karo
+    if (socket) {
+      socket.close();
+      setSocket(null);
     }
-    // Dependency mein socket ko mat daalna varna loop ban jayega
-  }, [authUser]); 
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [authUser]);
 
   return (
     <SocketContext.Provider value={{ socket, onlineUser }}>
