@@ -17,7 +17,7 @@ export const SocketContextProvider = ({ children }) => {
     let newSocket; // Local variable for the socket instance
 
     let localpath = "http://localhost:8000";
-    let livepath = "https://snaptalk-back.vercel.app";
+    // let livepath = "https://snaptalk-back.vercel.app";
 
     if (authUser) {
       newSocket = io(localpath, {
