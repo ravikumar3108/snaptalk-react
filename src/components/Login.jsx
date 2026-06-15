@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "./validation/AuthUser";
+import Listings from "./validation/Listing";
 
 function Login() {
   const { setAuthUser } = useAuthContext();
@@ -19,12 +20,10 @@ function Login() {
       return toast.error("All fields are mandatory");
     }
     try {
-      const res = await axios.post(
-        "https://snaptalk-back.vercel.app/api/auth/login",
-        loginData,
-      );
+      const main = new Listings();
+      const res = await main.loginUser(loginData);
       // const res = await axios.post(
-      //   "http://localhost:8000/api/auth/login",
+      //   "https://snaptalk-back.vercel.app/api/auth/login",
       //   loginData,
       // );
       if (res.data.status === true) {

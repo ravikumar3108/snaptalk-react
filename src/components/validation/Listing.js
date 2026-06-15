@@ -2,6 +2,14 @@ import { Component } from "react";
 import Api from "./Api";
 
 class Listings extends Component {
+  async loginUser(loginData) {
+    return Api.post("/api/auth/login", loginData);
+  }
+
+  async signupUser(data) {
+    return Api.post(`/api/auth/signup`, data);
+  }
+
   async profile() {
     return Api.get(`/api/auth/profile`);
   }

@@ -17,9 +17,9 @@ function MessageContainer() {
           {/* Header Section */}
           <div className="bg-[#202c33] py-2.5 px-4 flex justify-between items-center z-10 border-l border-[#313d45]/50">
             <div className="flex items-center">
-              
+
               {/* --- BACK BUTTON (Sirf Mobile par dikhega) --- */}
-              <div 
+              <div
                 className="md:hidden mr-3 text-[#aebac1] cursor-pointer hover:bg-[#3b4a54] p-1 rounded-full transition-all"
                 onClick={() => setSelectedConversation(null)}
               >
@@ -40,8 +40,8 @@ function MessageContainer() {
           </div>
 
           {/* Messages List Area */}
-          <div className="flex-1 overflow-hidden relative">
-             <MessageList />
+          <div className="flex-1 overflow-y-auto custom-scrollbar relative">
+            <MessageList />
           </div>
 
           {/* Input Area */}

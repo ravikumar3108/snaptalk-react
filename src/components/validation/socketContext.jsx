@@ -13,36 +13,39 @@ export const SocketContextProvider = ({ children }) => {
   const [onlineUser, setOnlineUser] = useState([]);
   const { authUser } = useAuthContext();
 
- useEffect(() => {
-  let newSocket; // Local variable for the socket instance
+  useEffect(() => {
+    let newSocket; // Local variable for the socket instance
 
-  if (authUser) {
-    newSocket = io("https://snaptalk-back.vercel.app", {
-      query: {
-        userId: authUser._id,
-      },
-    });
+    let localpath = "http://localhost:8000";
+    let livepath = "https://snaptalk-back.vercel.app";
 
-    setSocket(newSocket);
+    if (authUser) {
+      newSocket = io(localpath, {
+        query: {
+          userId: authUser._id,
+        },
+      });
 
-    newSocket.on("getOnlineUsers", (users) => {
-      setOnlineUser(users);
-    });
+      setSocket(newSocket);
 
-    // Cleanup: Jab component unmount hoga ya authUser change hoga
-    return () => {
-      newSocket.close();
-      setSocket(null);
-    };
-  } else {
-    // Agar authUser nahi hai, toh purane socket ko band karo
-    if (socket) {
-      socket.close();
-      setSocket(null);
+      newSocket.on("getOnlineUsers", (users) => {
+        setOnlineUser(users);
+      });
+
+      // Cleanup: Jab component unmount hoga ya authUser change hoga
+      return () => {
+        newSocket.close();
+        setSocket(null);
+      };
+    } else {
+      // Agar authUser nahi hai, toh purane socket ko band karo
+      if (socket) {
+        socket.close();
+        setSocket(null);
+      }
     }
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [authUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authUser]);
 
   return (
     <SocketContext.Provider value={{ socket, onlineUser }}>
