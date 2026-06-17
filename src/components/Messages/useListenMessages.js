@@ -65,7 +65,7 @@ const useListenMessages = () => {
       socket.off("newMessage", handleNewMessage);
       socket.off("messagesRead", handleMessagesRead);
     };
-  }, [socket, authUser]);
+  }, [socket, authUser, addMessage, markMessagesRead]);
 
   return null;
 };
