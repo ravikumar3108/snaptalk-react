@@ -16,11 +16,11 @@ export const SocketContextProvider = ({ children }) => {
   useEffect(() => {
     let newSocket; // Local variable for the socket instance
 
-    let localpath = "http://localhost:8000";
-    // let livepath = "https://snaptalk-back.vercel.app";
+    // let localpath = "http://localhost:8000";
+    let livepath = "https://snaptalk-back.vercel.app";
 
     if (authUser) {
-      newSocket = io(localpath, {
+      newSocket = io(livepath, {
         query: {
           userId: authUser._id,
         },
