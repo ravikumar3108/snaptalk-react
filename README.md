@@ -1,70 +1,155 @@
-# Getting Started with Create React App
+1. Last Message Preview
+2. Unread Count
+3. Real Status Feature
+4. Profile Edit
+5. Seen/Delivered Ticks
+6. Typing Indicator
+7. Image Upload
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Real Status Feature (sabse logical next step)
 
-## Available Scripts
+Abhi StatusViewer sirf placeholder hai.
 
-In the project directory, you can run:
+Ban sakta hai:
 
-### `npm start`
+My Status
++ Add Status
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Friends Status
+- Image Status
+- Text Status
+- Seen / Unseen Ring
+- Time Ago
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Click → Full Screen Viewer
 
-### `npm test`
+Backend:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Status
+{
+  userId,
+  image,
+  text,
+  viewedBy,
+  createdAt
+}
 
-### `npm run build`
+Aur 24 hrs baad auto delete.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Last Message Preview
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Abhi chat list me:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Click to start chatting...
 
-### `npm run eject`
+dikh raha hai.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+WhatsApp jaisa:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Ravi
+Hello bro...
+12:45 PM
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Iske liye conversation list API me last message bhejna hoga.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Unread Message Count
 
-## Learn More
+WhatsApp style:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Ravi                    12:45
+Hello bro...
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+         [3]
 
-### Code Splitting
+Unread badge.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. Typing Indicator
 
-### Analyzing the Bundle Size
+Socket.io se:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Ravi is typing...
 
-### Making a Progressive Web App
+Real-time.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+5. Message Seen Status
 
-### Advanced Configuration
+Single tick:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+✓
 
-### Deployment
+Delivered:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+✓✓
 
-### `npm run build` fails to minify
+Seen:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+✓✓ blue
+6. Online / Offline
+
+Aapke paas already:
+
+onlineUser.includes(...)
+
+hai.
+
+Bas last seen add karna hai:
+
+online
+
+last seen today at 3:45 PM
+7. Profile Editing
+
+Current profile read-only hai.
+
+Add:
+
+Edit Name
+Edit Username
+Change Profile Picture
+
+Modal ya drawer.
+
+8. Emoji Picker
+
+Message input me:
+
+😀 😍 😂 ❤️ 👍
+
+WhatsApp style picker.
+
+9. Image Sending
+
+Chat me:
+
+📎
+
+Click:
+
+Image
+PDF
+Document
+
+Upload.
+
+10. Voice Notes
+🎤
+
+Record and send.
+
+11. Chat Wallpaper
+
+Settings:
+
+Dark
+Light
+Custom Wallpaper
+12. Settings Page
+
+3-dot menu →
+
+Profile
+Settings
+Notifications
+Appearance
+Privacy
+Logout

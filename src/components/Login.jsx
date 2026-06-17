@@ -21,10 +21,6 @@ function Login() {
     try {
       const main = new Listings();
       const res = await main.loginUser(loginData);
-      // const res = await axios.post(
-      //   "https://snaptalk-back.vercel.app/api/auth/login",
-      //   loginData,
-      // );
       if (res.data.status === true) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("chat-user", JSON.stringify(res.data.user));

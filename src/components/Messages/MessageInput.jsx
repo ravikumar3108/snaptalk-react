@@ -7,7 +7,7 @@ import Listings from "../validation/Listing";
 function MessageInput() {
   const [loading, setLoading] = useState(false);
   const [currentMsg, setCurrentMsg] = useState(""); // Default value string honi chahiye
-  const { messages, setMessages, selectedConversation } = useConversation();
+  const { selectedConversation, addMessage } = useConversation();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!currentMsg.trim()) return; // Khali message na bhejein
@@ -18,7 +18,7 @@ function MessageInput() {
       const res = await main.sendMessages(selectedConversation._id, currentMsg);
 
       const data = res.data;
-      setMessages([...messages, data]);
+      addMessage(data);
       toast.success("sent");
       setCurrentMsg(""); // Clear state correctly as a string
     } catch (error) {
@@ -61,9 +61,8 @@ function MessageInput() {
           <span className="loading loading-spinner loading-xs text-[#aebac1]"></span>
         ) : (
           <MdSend
-            className={`text-2xl transition-all ${
-              currentMsg.trim() ? "text-[#00a884] scale-110" : "text-[#aebac1]"
-            }`}
+            className={`text-2xl transition-all ${currentMsg.trim() ? "text-[#00a884] scale-110" : "text-[#aebac1]"
+              }`}
           />
         )}
       </button>

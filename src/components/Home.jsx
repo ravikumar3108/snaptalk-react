@@ -41,7 +41,7 @@ function Home({ children, protect }) {
         className="z-10 bg-[#222e35] 
                    w-full h-full 
                    md:w-[95%] md:h-[95%] lg:max-w-[1600px] 
-                   flex shadow-2xl overflow-hidden md:rounded-sm border border-[#313d45]/50"
+                   md:flex lg:flex shadow-2xl overflow-hidden md:rounded-sm border border-[#313d45]/50"
       >
         {children}
       </div>

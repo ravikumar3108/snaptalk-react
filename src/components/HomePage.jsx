@@ -34,11 +34,15 @@
 
 // export default HomePage;
 
+
+
 import React from "react";
 import Sidebar from "./Home Comp/Sidebar";
 import MessageContainer from "./Messages/MessageContainer";
 import Home from "./Home";
 import Profile from "./User/Profile";
+import StatusViewer from "./User/StatusViewer";
+
 import useConversation from "../components/Zustand/useConversation";
 
 function HomePage() {
@@ -51,22 +55,60 @@ function HomePage() {
     <Home protect={true}>
       {/* Sidebar */}
       <div
-        className={`${
-          selectedConversation || activeView === "profile"
+        className={`${selectedConversation ||
+            activeView === "profile" ||
+            activeView === "status"
             ? "hidden"
             : "flex"
-        } md:flex h-full w-full md:w-auto border-r border-[#313d45]/50`}
+          } md:flex h-full border-r border-[#313d45]/50`}
       >
         <Sidebar />
       </div>
 
-      {/* Right Panel */}
-      <div className="flex-1 h-full">
+      {/* Desktop */}
+      <div className="hidden md:flex flex-1 h-full">
         {activeView === "profile" ? (
           <Profile />
-        ) : (
+        ) : activeView === "status" ? (
+          <StatusViewer />
+        ) : activeView === "chat" &&
+          selectedConversation ? (
           <MessageContainer />
+        ) : (
+          <div className="flex flex-1 items-center justify-center bg-[#222e35] text-[#8696a0]">
+            Select a chat to start messaging
+          </div>
         )}
+      </div>
+
+      {/* Mobile Chat */}
+      <div
+        className={`${activeView === "chat"
+            ? "flex"
+            : "hidden"
+          } md:hidden flex-1 h-full`}
+      >
+        <MessageContainer />
+      </div>
+
+      {/* Mobile Profile */}
+      <div
+        className={`${activeView === "profile"
+            ? "flex"
+            : "hidden"
+          } md:hidden flex-1 h-full`}
+      >
+        <Profile />
+      </div>
+
+      {/* Mobile Status */}
+      <div
+        className={`${activeView === "status"
+            ? "flex"
+            : "hidden"
+          } md:hidden flex-1 h-full`}
+      >
+        <StatusViewer />
       </div>
     </Home>
   );
