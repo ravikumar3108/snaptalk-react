@@ -2,7 +2,6 @@ import React from 'react'
 import SearchInput from './SearchInput'
 import ConversationList from './ConversationList'
 import MyProfile from './MyProfile'
-import StatusList from '../User/StatusList'
 
 function Sidebar() {
   return (

@@ -9,10 +9,10 @@ function StatusList() {
     const { setActiveView, setSelectedConversation } =
         useConversation();
 
-    const openStatus = () => {
-        setSelectedConversation(null);
-        setActiveView("status");
-    };
+    // const openStatus = () => {
+    //     setSelectedConversation(null);
+    //     setActiveView("status");
+    // };
 
     const statuses = [
         {
